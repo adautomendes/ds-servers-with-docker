@@ -85,9 +85,9 @@
 							"raw": "{\n\t\"title\": \"A volta dos que não foram\",\n\t\"duration\": 240,\n\t\"year\": 2019\n}"
 						},
 						"url": {
-							"raw": "{{ds-servers-core-1}}/movie",
+							"raw": "{{ds-servers-core}}/movie",
 							"host": [
-								"{{ds-servers-core-1}}"
+								"{{ds-servers-core}}"
 							],
 							"path": [
 								"movie"
@@ -119,9 +119,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{ds-servers-core-1}}/movie",
+							"raw": "{{ds-servers-core}}/movie",
 							"host": [
-								"{{ds-servers-core-1}}"
+								"{{ds-servers-core}}"
 							],
 							"path": [
 								"movie"
@@ -142,9 +142,9 @@
 							}
 						],
 						"url": {
-							"raw": "{{ds-servers-core-1}}/movie/{{movie_id}}",
+							"raw": "{{ds-servers-core}}/movie/{{movie_id}}",
 							"host": [
-								"{{ds-servers-core-1}}"
+								"{{ds-servers-core}}"
 							],
 							"path": [
 								"movie",
@@ -175,9 +175,9 @@
 							"raw": "{\n\t\"id\": \"{{movie_id}}\",\n\t\"title\": \"A volta dos que não foram\",\n\t\"duration\": 1234,\n\t\"year\": 1234\n}"
 						},
 						"url": {
-							"raw": "{{ds-servers-core-1}}/movie",
+							"raw": "{{ds-servers-core}}/movie",
 							"host": [
-								"{{ds-servers-core-1}}"
+								"{{ds-servers-core}}"
 							],
 							"path": [
 								"movie"
@@ -218,9 +218,9 @@
 							"raw": "{\n\t\"id\": \"{{movie_id}}\"\n}"
 						},
 						"url": {
-							"raw": "{{ds-servers-core-1}}/movie",
+							"raw": "{{ds-servers-core}}/movie",
 							"host": [
-								"{{ds-servers-core-1}}"
+								"{{ds-servers-core}}"
 							],
 							"path": [
 								"movie"
