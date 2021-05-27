@@ -15,13 +15,13 @@ server.use(routes);
 
 mongoose.connect(DB.DB_URL, DB.DB_SETTINGS, (err) => {
     if(!err) {
-        Logger.print(`✔ Connected to MongoDB`);
+        Logger.print(`Connected to MongoDB`);
         AdminController.createAdmin();
     } else {
-        Logger.print(`✖ Error while connecting to MongoDB.\n${err}`);
+        Logger.print(`Error while connecting to MongoDB.\n${err}`);
     }
 });
 
 server.listen(process.env.PORT, () => {
-    Logger.print(`✔ Auth server running at port ${process.env.PORT}`)
+    Logger.print(`Auth server running at port ${process.env.PORT}`)
 });

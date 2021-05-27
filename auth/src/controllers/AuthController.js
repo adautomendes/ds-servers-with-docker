@@ -1,4 +1,4 @@
-const HttpStatus = require('http-status-codes');
+const HttpStatus = require('http-status-codes').StatusCodes;
 const jwt = require('jsonwebtoken');
 const PasswordUtil = require('../utils/PasswordUtil');
 const User = require('../models/User');

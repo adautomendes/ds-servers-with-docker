@@ -13,14 +13,14 @@ module.exports = {
         const userExists = await User.findOne({ username: admin.username });
 
         if (userExists) {
-            Logger.print(`✔ Admin already created`);
+            Logger.print(`Admin already created`);
             return;
         }
 
         admin = await User.create(admin);
 
         if (admin) {
-            Logger.print(`✔ Admin created successfully`);
+            Logger.print(`Admin created successfully`);
             return;
         }
     }

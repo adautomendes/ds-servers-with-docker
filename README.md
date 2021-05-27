@@ -6,14 +6,14 @@
 - [MongoDB](https://www.mongodb.com/): Document-based and distributed database.
 
 ## Architecture
-This project contains 4 distinct servers which can be deployed separately and communicate each other. Use the file `.env` within each project to configure each server. All communication between these servers is realized by REST/HTTP.
+This project contains 3 distinct servers (with many instances) which can be deployed separately and communicate each other. Use the file `.env` within each project to configure each server. All communication between these servers is realized by REST/HTTP.
 
 ![](doc/Architecture.png)
 
 ### Auth Server
 Is the authentication server. Communicates with database to authenticate users and generate JWT (Json Web Token). Also is used by Core Server to validate the token provided by requests in Core's protected routes. All passwords are encrypted using SHA256.
 
-### Core Server (2 Instances)
+### Core Server
 Server responsible to manipulate entities (e.g "Movie") inside database. Has protected routes which needs to receive a valid token to execute. In cases where token is not provided or wrong, Auth Server will return an error and the Core's protected routes will not be accessible.
 
 ### API Server
@@ -45,7 +45,7 @@ Each project (folder) has a `.env` file which contains environment variables use
 `DB_NAME`: name of database that will be created by the application.  
 `SECRET`: keyword used by JWT to generate tokens.  
 
-### Core Server `.env` configuration (both instances)
+### Core Server `.env` configuration
 
 `PORT`: port used to run Core Server.  
 `DB_URL`: URL of the database.  
@@ -69,4 +69,15 @@ To run each server open a command window in each folder and run the command belo
 
 `yarn dev`
 
-In Windows you can run only `runServers.cmd` to run both four servers.
+## Running on docker
+Run the following command to build the images:
+
+`docker-compose build`
+
+Now run the applications using docker compose:
+
+`docker-compose up`
+
+If you want to scale any of then, you can do:
+
+`docker-compose up --scale core=3`

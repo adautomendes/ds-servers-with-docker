@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  mongo-db:
+    image: "mongo"
+    restart: unless-stopped
+    logging:
+        driver: "none"
+    volumes:
+      - ".:/mongo-db"
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  auth:
+    build: "./auth"
+    volumes:
+        - ".:/auth"
+    expose:
+        - "5000"
+    networks:
+        - app-network
+    depends_on:
+        - mongo-db
+    environment:
+        - PORT=5000
+        - DB_URL=mongodb://mongo-db:27017
+        - DB_NAME=ds-servers
+        - SECRET=AVeryLongSecretToProtectYourPassword
+
+  core:
+    build: "./core"
+    volumes:
+      - ".:/core"
+    expose:
+      - "3000"
+    networks:
+      - app-network
+    depends_on:
+      - mongo-db
+    environment:
+        - PORT=3000
+        - DB_URL=mongodb://mongo-db:27017
+        - DB_NAME=ds-servers
+        - AUTH_SERVER=http://auth:5000
+
+  api:
+    build: "./api"
+    volumes:
+      - ".:/api"
+    ports:
+      - "3333:3333"
+    networks:
+      - app-network
+    depends_on:
+      - core
+      - auth
+    environment:
+        - PORT=3333
+        - CORE_SERVER=http://core:3000
+        - AUTH_SERVER=http://auth:5000
+
+networks:
+  app-network:
+    driver: bridge

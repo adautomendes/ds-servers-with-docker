@@ -11,8 +11,8 @@ appRouter.get('/', (req, res) => { //Root route of app
 });
 
 appRouter.use('/movie', AuthController.verifyJWT, movieRouter);
-movieRouter.post('/', MovieController.insert);
-movieRouter.patch('/', MovieController.update);
+movieRouter.post('/', MovieController.payloadValidation, MovieController.insert);
+movieRouter.patch('/', MovieController.payloadValidation, MovieController.update);
 movieRouter.get('/:id?', MovieController.search);
 movieRouter.delete('/', MovieController.delete);
 

@@ -1,7 +1,7 @@
 const axios = require('axios');
 const Logger = require('../logger')('[USER]');
 
-let CORE_SERVER = process.env.CORE_1_SERVER;
+let CORE_SERVER = process.env.CORE_SERVER;
 
 module.exports = {
     async insert(req, res) {
@@ -88,20 +88,5 @@ module.exports = {
             .catch((error) => {
                 return res.status(error.response.status).json(error.response.data);
             });
-    },
-
-    /**
-     * This middleware function simulates a load balancer
-     * between 2 Core servers considering a centralized
-     * DB server (Data-Centered Architecture)
-     */
-    async loadBalanceForCore(req, res, next) {
-        if(CORE_SERVER == process.env.CORE_1_SERVER) {
-            CORE_SERVER = process.env.CORE_2_SERVER;
-        } else {
-            CORE_SERVER = process.env.CORE_1_SERVER;
-        }
-
-        next();
     }
 };

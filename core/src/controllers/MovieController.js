@@ -1,9 +1,35 @@
-const HttpStatus = require('http-status-codes');
+const HttpStatus = require('http-status-codes').StatusCodes;
+const _ = require('lodash'); 
 
 const Movie = require('../models/Movie');
 const Logger = require('../logger')('[MOVIE]');
 
 module.exports = {
+    async payloadValidation(req, res, next) {
+        let {title, duration, year} = req.body;
+
+        let errorMessages = [];
+        if(_.isEmpty(title)) {
+            errorMessages.push("Title cannot be empty");
+        }
+    
+        if(duration < 0) {
+            errorMessages.push("Duration must be greater than zero.");
+        }
+    
+        if(year < 0) {
+            errorMessages.push("Year must be greater than zero.");
+        }
+    
+        if(_.isEmpty(errorMessages)) {
+            next();
+        } else {
+            return res.status(HttpStatus.BAD_REQUEST).json({
+                message: "Opss, there is an error on your payload! Please check the error messages.",
+                errorMessages
+            });
+        }
+    },
     async insert(req, res) {
         const { title, duration, year } = req.body;
 

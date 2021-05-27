@@ -1,4 +1,4 @@
-const HttpStatus = require('http-status-codes');
+const HttpStatus = require('http-status-codes').StatusCodes;
 const axios = require('axios');
 const Logger = require('../logger')('[AUTH]');
 require('dotenv').config();
