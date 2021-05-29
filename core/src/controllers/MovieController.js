@@ -1,27 +1,35 @@
 const HttpStatus = require(`http-status-codes`).StatusCodes;
-const _ = require(`lodash`); 
+const _ = require(`lodash`);
 
 const Movie = require(`../models/Movie`);
 const Logger = require(`../logger`)(`[MOVIE]`);
 
 module.exports = {
     async payloadValidation(req, res, next) {
-        let {title, duration, year} = req.body;
+        let { title, duration, year } = req.body;
 
         let errorMessages = [];
-        if(_.isEmpty(title)) {
+        if (_.isEmpty(title)) {
             errorMessages.push(`Title cannot be empty`);
         }
-    
-        if(duration < 0) {
+
+        if (_.isEmpty(duration)) {
+            errorMessages.push(`Duration cannot be empty`);
+        }
+
+        if (_.isEmpty(year)) {
+            errorMessages.push(`Year cannot be empty`);
+        }
+
+        if (duration < 0) {
             errorMessages.push(`Duration must be greater than zero.`);
         }
-    
-        if(year < 0) {
+
+        if (year < 0) {
             errorMessages.push(`Year must be greater than zero.`);
         }
-    
-        if(_.isEmpty(errorMessages)) {
+
+        if (_.isEmpty(errorMessages)) {
             next();
         } else {
             return res.status(HttpStatus.BAD_REQUEST).json({
@@ -55,31 +63,39 @@ module.exports = {
         const { id } = req.params;
         const { title, duration, year } = req.body;
 
-        const response = await Movie.updateOne({ _id: id }, {
-            title,
-            duration,
-            year
-        });
+        try {
+            const response = await Movie.updateOne({ _id: id }, {
+                title,
+                duration,
+                year
+            });
 
-        if(response.nModified == 1 && response.ok == 1) {
-            Logger.print(`${title} updated!`);
-            const movie = await Movie.findById(id);
-            return res.status(HttpStatus.OK).json(movie);
+            if (response.nModified == 1 && response.ok == 1) {
+                Logger.print(`${title} updated!`);
+                const movie = await Movie.findById(id);
+                return res.status(HttpStatus.OK).json(movie);
+            }
+            return res.status(HttpStatus.BAD_REQUEST).json({ msg: `Invalid request` });
+        } catch (error) {
+            return res.status(HttpStatus.NOT_FOUND).json({ msg: `No movie was found with these input parameters.`, query: { id } });
         }
-
-        return res.status(HttpStatus.BAD_REQUEST).json({ msg: `Invalid request` });
     },
 
     async search(req, res) {
         const { id } = req.query;
-        let movies;
+        let movies = [];
 
-        if(id) { //Find one
-            movies = await Movie.findById(id);
-            Logger.print(`Movie ${movies.title} found!`);
-        } else { //Find all
-            movies = await Movie.find();
-            Logger.print(`${movies.length} movies found!`);
+        try {
+            if (id) {
+                movies = await Movie.find({ _id: id });
+            } else {
+                movies = await Movie.find();
+            }
+        } catch (error) { }
+
+        Logger.print(`${movies.length} movies found!`);
+        if (movies.length == 0) {
+            return res.status(HttpStatus.NOT_FOUND).json({ msg: `No movies were found with this query criteria.`, query: { id } });
         }
 
         return res.status(HttpStatus.OK).json(movies);
@@ -88,13 +104,19 @@ module.exports = {
     async delete(req, res) {
         const { id } = req.params;
 
-        const response = await Movie.deleteOne({ _id: id });
+        try {
+            const response = await Movie.deleteOne({ _id: id });
 
-        if(response.deletedCount == 1 && response.ok == 1) {
-            Logger.print(`${id} removed!`);
-            return res.status(HttpStatus.NO_CONTENT).json();
+            if (response.deletedCount == 1 && response.ok == 1) {
+                Logger.print(`${id} removed!`);
+                return res.status(HttpStatus.NO_CONTENT).json();
+            }
+
+            return res.status(HttpStatus.BAD_REQUEST).json({ msg: `Invalid request` });
+        } catch (error) {
+            return res.status(HttpStatus.NOT_FOUND).json({ msg: `No movie was found with these input parameters.`, query: { id } });
         }
 
-        return res.status(HttpStatus.BAD_REQUEST).json({ msg: `Invalid request` });
+
     }
 };

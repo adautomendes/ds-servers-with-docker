@@ -60,6 +60,53 @@
 					"response": []
 				},
 				{
+					"name": "Create user with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"user_id\", jsonData._id);",
+									"pm.globals.set(\"user_username\", jsonData.username);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{ds-servers-auth}}/user",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create user",
 					"event": [
 						{
@@ -185,6 +232,96 @@
 					"response": []
 				},
 				{
+					"name": "Update user password with invalid username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"adauto123456\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-auth}}/user/invalid",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user",
+								"invalid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user password with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{ds-servers-auth}}/user/{{user-adauto}}",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user",
+								"{{user-adauto}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update user password",
 					"event": [
 						{
@@ -224,6 +361,66 @@
 							"path": [
 								"user",
 								"{{user-adauto}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by invalid id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-auth}}/user/?id=invalid",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "invalid"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by invalid username",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-auth}}/user/?username=invalid",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "invalid"
+								}
 							]
 						}
 					},
@@ -392,6 +589,47 @@
 					"response": []
 				},
 				{
+					"name": "Delete user with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-auth}}/user/invalid",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user",
+								"invalid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete user",
 					"event": [
 						{
@@ -526,6 +764,52 @@
 					"response": []
 				},
 				{
+					"name": "Create movie with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"movie_id\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": \"-2\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-core}}/movie",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create movie",
 					"event": [
 						{
@@ -557,7 +841,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 240,\n    \"year\": 2019\n}"
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": \"240\",\n    \"year\": \"2019\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-core}}/movie",
@@ -566,6 +850,36 @@
 							],
 							"path": [
 								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find movie by invalid id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/?id=invalid",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "invalid"
+								}
 							]
 						}
 					},
@@ -636,6 +950,72 @@
 					"response": []
 				},
 				{
+					"name": "Update movie with invalid id",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": \"1234\",\n    \"year\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/invalid",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								"invalid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update movie with invalid payload",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"year\": \"-2\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/{{movie_id}}",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								"{{movie_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update movie",
 					"request": {
 						"method": "PATCH",
@@ -653,7 +1033,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 1234,\n    \"year\": 1234\n}"
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": \"1234\",\n    \"year\": \"1234\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-core}}/movie/{{movie_id}}",
@@ -663,6 +1043,46 @@
 							"path": [
 								"movie",
 								"{{movie_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/invalid",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								"invalid"
 							]
 						}
 					},
@@ -805,6 +1225,139 @@
 					"response": []
 				},
 				{
+					"name": "Create user with invalid Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Invalid token.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([401]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"type": "text",
+								"value": "invalid"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"adauto\",\n    \"password\": \"adauto\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/user",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user with no Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Token not provided.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([403]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"adauto\",\n    \"password\": \"adauto\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/user",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Invalid payload for create user.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"adauto\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/user",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create user",
 					"event": [
 						{
@@ -835,8 +1388,8 @@
 							},
 							{
 								"key": "token",
-								"type": "text",
-								"value": "{{admin_token}}"
+								"value": "{{admin_token}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -938,6 +1491,100 @@
 					"response": []
 				},
 				{
+					"name": "Update user password with invalid username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User updated.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"adauto123456\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/user/invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								"invalid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user password with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User updated.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/user/{{user-adauto}}",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								"{{user-adauto}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update user password",
 					"event": [
 						{
@@ -979,6 +1626,92 @@
 							"path": [
 								"user",
 								"{{user-adauto}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User not found.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/user/?id=invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "invalid"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by invalid username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User not found.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/user/?username=invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "invalid"
+								}
 							]
 						}
 					},
@@ -1108,6 +1841,136 @@
 					"response": []
 				},
 				{
+					"name": "Create movie with invalid Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Invalid token.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([401]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "invalid",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 240,\n    \"year\": 2019\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/movie",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create movie with no Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Token not provided.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([403]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 240,\n    \"year\": 2019\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/movie",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create movie with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Movie created or already exists.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{adauto_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/movie",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create movie",
 					"event": [
 						{
@@ -1142,7 +2005,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 240,\n    \"year\": 2019\n}"
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": \"240\",\n    \"year\": \"2019\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-api}}/movie",
@@ -1151,6 +2014,49 @@
 							],
 							"path": [
 								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find movie by invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Movie not found.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{adauto_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/movie/?id=invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "invalid"
+								}
 							]
 						}
 					},
@@ -1236,6 +2142,98 @@
 					"response": []
 				},
 				{
+					"name": "Update movie with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Movie updated.\", function() {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{adauto_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": \"1234\",\n    \"year\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/movie/invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie",
+								"invalid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update movie with invalid payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Movie updated.\", function() {",
+									"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{adauto_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-api}}/movie/{{movie_id}}",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie",
+								"{{movie_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Update movie",
 					"event": [
 						{
@@ -1266,7 +2264,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 1234,\n    \"year\": 1234\n}"
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": \"1234\",\n    \"year\": \"1234\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-api}}/movie/{{movie_id}}",
@@ -1276,6 +2274,48 @@
 							"path": [
 								"movie",
 								"{{movie_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Movie not found.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{adauto_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/movie/invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"movie",
+								"invalid"
 							]
 						}
 					},
@@ -1439,6 +2479,49 @@
 							"path": [
 								"user",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user with invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User not found.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/user/invalid",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								"invalid"
 							]
 						}
 					},

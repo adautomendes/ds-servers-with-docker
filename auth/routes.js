@@ -17,8 +17,8 @@ authRouter.post(`/logout`, AuthController.logout);
 authRouter.post(`/validateToken`, AuthController.verifyJWTRoute);
 
 appRouter.use(`/user`, AuthController.verifyJWTMiddleware, userRouter); //Protecting users routes with JWT
-userRouter.post(`/`, UserController.insert);
-userRouter.patch(`/:username`, UserController.update);
+userRouter.post(`/`, UserController.payloadValidation, UserController.insert);
+userRouter.patch(`/:username`, UserController.payloadValidation, UserController.update);
 userRouter.get(`/`, UserController.search);
 userRouter.delete(`/:id`, UserController.delete);
 
