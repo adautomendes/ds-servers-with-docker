@@ -1,272 +1,10 @@
 {
 	"info": {
-		"_postman_id": "7676ae99-69ce-4275-95c3-c10f006a90fe",
+		"_postman_id": "f74980aa-3486-45df-aa54-3f219d7e3abb",
 		"name": "DS Servers",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "Movie (Core)",
-			"item": [
-				{
-					"name": "Login as Admin",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.globals.set(\"admin_token\", jsonData.token);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
-						},
-						"url": {
-							"raw": "{{ds-servers-auth}}/auth/login",
-							"host": [
-								"{{ds-servers-auth}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create movie",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.globals.set(\"movie_id\", jsonData._id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "token",
-								"value": "{{admin_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"title\": \"A volta dos que não foram\",\n\t\"duration\": 240,\n\t\"year\": 2019\n}"
-						},
-						"url": {
-							"raw": "{{ds-servers-core}}/movie",
-							"host": [
-								"{{ds-servers-core}}"
-							],
-							"path": [
-								"movie"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "List movies",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "{{admin_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{ds-servers-core}}/movie",
-							"host": [
-								"{{ds-servers-core}}"
-							],
-							"path": [
-								"movie"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find movie by id",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "token",
-								"value": "{{admin_token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{ds-servers-core}}/movie/{{movie_id}}",
-							"host": [
-								"{{ds-servers-core}}"
-							],
-							"path": [
-								"movie",
-								"{{movie_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update movie",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "token",
-								"value": "{{admin_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"{{movie_id}}\",\n\t\"title\": \"A volta dos que não foram\",\n\t\"duration\": 1234,\n\t\"year\": 1234\n}"
-						},
-						"url": {
-							"raw": "{{ds-servers-core}}/movie",
-							"host": [
-								"{{ds-servers-core}}"
-							],
-							"path": [
-								"movie"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete movie",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.globals.unset(\"movie_id\");"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							},
-							{
-								"key": "token",
-								"value": "{{admin_token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"{{movie_id}}\"\n}"
-						},
-						"url": {
-							"raw": "{{ds-servers-core}}/movie",
-							"host": [
-								"{{ds-servers-core}}"
-							],
-							"path": [
-								"movie"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Logout as Admin",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.globals.unset(\"admin_token\");"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"type": "text",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{ds-servers-auth}}/auth/logout",
-							"host": [
-								"{{ds-servers-auth}}"
-							],
-							"path": [
-								"auth",
-								"logout"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "User (Auth)",
 			"item": [
@@ -283,6 +21,15 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.clear();"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -297,7 +44,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+							"raw": "{\n    \"username\": \"{{user-admin}}\",\n    \"password\": \"admin\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-auth}}/auth/login",
@@ -321,7 +68,8 @@
 								"exec": [
 									"var jsonData = pm.response.json();",
 									"",
-									"pm.globals.set(\"user_id\", jsonData._id);"
+									"pm.globals.set(\"user_id\", jsonData._id);",
+									"pm.globals.set(\"user_username\", jsonData.username);"
 								],
 								"type": "text/javascript"
 							}
@@ -344,7 +92,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"adauto\",\n\t\"password\": \"adauto\"\n}"
+							"raw": "{\n    \"username\": \"{{user-adauto}}\",\n    \"password\": \"adauto\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-auth}}/user",
@@ -421,7 +169,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"adauto\",\n\t\"password\": \"adauto\"\n}"
+							"raw": "{\n    \"username\": \"{{user-adauto}}\",\n    \"password\": \"adauto\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-auth}}/auth/login",
@@ -466,15 +214,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"adauto\",\n\t\"password\": \"adauto123456\"\n}"
+							"raw": "{\n    \"password\": \"adauto123456\"\n}"
 						},
 						"url": {
-							"raw": "{{ds-servers-auth}}/user",
+							"raw": "{{ds-servers-auth}}/user/{{user-adauto}}",
 							"host": [
 								"{{ds-servers-auth}}"
 							],
 							"path": [
-								"user"
+								"user",
+								"{{user-adauto}}"
 							]
 						}
 					},
@@ -516,13 +265,49 @@
 							}
 						],
 						"url": {
-							"raw": "{{ds-servers-auth}}/user/{{user_id}}",
+							"raw": "{{ds-servers-auth}}/user/?id={{user_id}}",
 							"host": [
 								"{{ds-servers-auth}}"
 							],
 							"path": [
 								"user",
-								"{{user_id}}"
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{user_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by username",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-auth}}/user/?username={{user_username}}",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{user_username}}"
+								}
 							]
 						}
 					},
@@ -591,7 +376,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+							"raw": "{\n    \"username\": \"{{user-admin}}\",\n    \"password\": \"admin\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-auth}}/auth/login",
@@ -613,7 +398,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.globals.unset(\"user_id\");"
+									"pm.globals.unset(\"user_id\");\r",
+									"pm.globals.unset(\"user_username\");"
 								],
 								"type": "text/javascript"
 							}
@@ -634,17 +420,289 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"{{user_id}}\"\n}"
-						},
 						"url": {
-							"raw": "{{ds-servers-auth}}/user",
+							"raw": "{{ds-servers-auth}}/user/{{user_id}}",
 							"host": [
 								"{{ds-servers-auth}}"
 							],
 							"path": [
-								"user"
+								"user",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout as Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.unset(\"admin_token\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-auth}}/auth/logout",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movie (Core)",
+			"item": [
+				{
+					"name": "Login as Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"admin_token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.clear();"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-auth}}/auth/login",
+							"host": [
+								"{{ds-servers-auth}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.globals.set(\"movie_id\", jsonData._id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 240,\n    \"year\": 2019\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-core}}/movie",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-core}}/movie",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find movie by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/?id={{movie_id}}",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{movie_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update movie",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 1234,\n    \"year\": 1234\n}"
+						},
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/{{movie_id}}",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								"{{movie_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete movie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.globals.unset(\"movie_id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{admin_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-core}}/movie/{{movie_id}}",
+							"host": [
+								"{{ds-servers-core}}"
+							],
+							"path": [
+								"movie",
+								"{{movie_id}}"
 							]
 						}
 					},
@@ -708,6 +766,15 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.clear();"
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -722,7 +789,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-api}}/auth/login",
@@ -747,6 +814,7 @@
 									"var jsonData = pm.response.json();",
 									"",
 									"pm.globals.set(\"user_id\", jsonData._id);",
+									"pm.globals.set(\"user_username\", jsonData.username);",
 									"",
 									"pm.test(\"User created or already exists.\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
@@ -773,7 +841,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"adauto\",\n\t\"password\": \"adauto\"\n}"
+							"raw": "{\n    \"username\": \"adauto\",\n    \"password\": \"adauto\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-api}}/user",
@@ -854,7 +922,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"adauto\",\n\t\"password\": \"adauto\"\n}"
+							"raw": "{\n    \"username\": \"adauto\",\n    \"password\": \"adauto\"\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-api}}/auth/login",
@@ -901,15 +969,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"adauto\",\n\t\"password\": \"adauto123456\"\n}"
+							"raw": "{\n    \"password\": \"adauto123456\"\n}"
 						},
 						"url": {
-							"raw": "{{ds-servers-api}}/user",
+							"raw": "{{ds-servers-api}}/user/{{user-adauto}}",
 							"host": [
 								"{{ds-servers-api}}"
 							],
 							"path": [
-								"user"
+								"user",
+								"{{user-adauto}}"
 							]
 						}
 					},
@@ -977,13 +1046,62 @@
 							}
 						],
 						"url": {
-							"raw": "{{ds-servers-api}}/user/{{user_id}}",
+							"raw": "{{ds-servers-api}}/user/?id={{user_id}}",
 							"host": [
 								"{{ds-servers-api}}"
 							],
 							"path": [
 								"user",
-								"{{user_id}}"
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{user_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find user by username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"User find by ID ok.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{adauto_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/user/?username={{user_username}}",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "{{user_username}}"
+								}
 							]
 						}
 					},
@@ -1024,7 +1142,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"A volta dos que não foram\",\n\t\"duration\": 240,\n\t\"year\": 2019\n}"
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 240,\n    \"year\": 2019\n}"
 						},
 						"url": {
 							"raw": "{{ds-servers-api}}/movie",
@@ -1099,13 +1217,19 @@
 							}
 						],
 						"url": {
-							"raw": "{{ds-servers-api}}/movie/{{movie_id}}",
+							"raw": "{{ds-servers-api}}/movie/?id={{movie_id}}",
 							"host": [
 								"{{ds-servers-api}}"
 							],
 							"path": [
 								"movie",
-								"{{movie_id}}"
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "{{movie_id}}"
+								}
 							]
 						}
 					},
@@ -1142,15 +1266,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": \"{{movie_id}}\",\n\t\"title\": \"A volta dos que não foram\",\n\t\"duration\": 1234,\n\t\"year\": 1234\n}"
+							"raw": "{\n    \"title\": \"A volta dos que não foram\",\n    \"duration\": 1234,\n    \"year\": 1234\n}"
 						},
 						"url": {
-							"raw": "{{ds-servers-api}}/movie",
+							"raw": "{{ds-servers-api}}/movie/{{movie_id}}",
 							"host": [
 								"{{ds-servers-api}}"
 							],
 							"path": [
-								"movie"
+								"movie",
+								"{{movie_id}}"
 							]
 						}
 					},
@@ -1187,17 +1312,14 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"{{movie_id}}\"\n}"
-						},
 						"url": {
-							"raw": "{{ds-servers-api}}/movie",
+							"raw": "{{ds-servers-api}}/movie/{{movie_id}}",
 							"host": [
 								"{{ds-servers-api}}"
 							],
 							"path": [
-								"movie"
+								"movie",
+								"{{movie_id}}"
 							]
 						}
 					},
@@ -1286,6 +1408,43 @@
 					"response": []
 				},
 				{
+					"name": "List users - Before",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Users list ok.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/user/",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Delete user",
 					"event": [
 						{
@@ -1296,7 +1455,8 @@
 									"    pm.expect(pm.response.code).to.be.oneOf([204]);",
 									"});",
 									"",
-									"pm.globals.unset(\"user_id\");"
+									"pm.globals.unset(\"user_id\");",
+									"pm.globals.unset(\"user_username\");"
 								],
 								"type": "text/javascript"
 							}
@@ -1317,17 +1477,51 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"id\": \"{{user_id}}\"\n}"
-						},
 						"url": {
-							"raw": "{{ds-servers-api}}/user",
+							"raw": "{{ds-servers-api}}/user/{{user_id}}",
 							"host": [
 								"{{ds-servers-api}}"
 							],
 							"path": [
-								"user"
+								"user",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List users - After",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Users list ok.\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"type": "text",
+								"value": "{{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{ds-servers-api}}/user/",
+							"host": [
+								"{{ds-servers-api}}"
+							],
+							"path": [
+								"user",
+								""
 							]
 						}
 					},

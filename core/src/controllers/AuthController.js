@@ -1,17 +1,13 @@
-const axios = require('axios');
-const HttpStatus = require('http-status-codes').StatusCodes;
-const Logger = require('../logger')('[AUTH]');
-require('dotenv').config();
+const axios = require(`axios`);
+const HttpStatus = require(`http-status-codes`).StatusCodes;
+const Logger = require(`../logger`)(`[AUTH]`);
+require(`dotenv`).config();
 
 module.exports = {
-
     async verifyJWT(req, res, next) {
         const { token } = req.headers;
 
-        if (token == null)
-            return res.status(HttpStatus.BAD_REQUEST).json({ error: 'Token not provided.' });
-
-        let url = process.env.AUTH_SERVER + '/auth/validateToken';
+        let url = process.env.AUTH_SERVER + `/auth/validateToken`;
         let postData = {};
         let axiosConfig = {
             headers: {

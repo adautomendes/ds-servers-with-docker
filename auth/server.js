@@ -1,12 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config();
+const express = require(`express`);
+const mongoose = require(`mongoose`);
+require(`dotenv`).config();
 
-const routes = require('./routes');
-const DB = require('./src/database/config');
-const Logger = require('./src/logger')('[SERVER]');
+const routes = require(`./routes`);
+const DB = require(`./src/database/config`);
+const Logger = require(`./src/logger`)(`[SERVER]`);
 
-const AdminController = require('./src/controllers/AdminController');
+const AdminController = require(`./src/controllers/AdminController`);
 
 const server = express();
 

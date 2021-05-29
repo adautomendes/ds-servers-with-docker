@@ -1,12 +1,12 @@
-const User = require('../models/User');
-const PasswordUtil = require('../utils/PasswordUtil');
-const Logger = require('../logger')('[ADMIN]');
+const User = require(`../models/User`);
+const PasswordUtil = require(`../utils/PasswordUtil`);
+const Logger = require(`../logger`)(`[ADMIN]`);
 
 module.exports = {
     async createAdmin() {
         let admin = {
-            username: 'admin',
-            password: await PasswordUtil.cryptPassword('admin')
+            username: `admin`,
+            password: await PasswordUtil.cryptPassword(`admin`)
         };
 
         //Testing if user already exists

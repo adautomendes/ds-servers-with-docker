@@ -1,8 +1,8 @@
-const express = require('express');
-require('dotenv').config();
+const express = require(`express`);
+require(`dotenv`).config();
 
-const routes = require('./routes');
-const Logger = require('./src/logger')('[SERVER]');
+const routes = require(`./routes`);
+const Logger = require(`./src/logger`)(`[SERVER]`);
 
 const server = express();
 

@@ -1,8 +1,8 @@
-const HttpStatus = require('http-status-codes').StatusCodes;
-const jwt = require('jsonwebtoken');
-const PasswordUtil = require('../utils/PasswordUtil');
-const User = require('../models/User');
-const Logger = require('../logger')('[AUTH]');
+const HttpStatus = require(`http-status-codes`).StatusCodes;
+const jwt = require(`jsonwebtoken`);
+const PasswordUtil = require(`../utils/PasswordUtil`);
+const User = require(`../models/User`);
+const Logger = require(`../logger`)(`[AUTH]`);
 
 module.exports = {
     async login(req, res) {
@@ -16,14 +16,14 @@ module.exports = {
 
             if (user != null) {
                 var token = jwt.sign({ id: user._id }, process.env.SECRET, {
-                    expiresIn: '1d'
+                    expiresIn: `1d`
                 });
 
-                Logger.print(`User '${username}' logged in.`);
+                Logger.print(`User ${username} logged in.`);
 
                 return res.status(HttpStatus.OK).json({ token });
             } else {
-                return res.status(HttpStatus.UNAUTHORIZED).json({ msg: 'Invalid login.' });
+                return res.status(HttpStatus.UNAUTHORIZED).json({ msg: `Invalid login.` });
             }
         } catch (error) {
             return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error });
@@ -64,7 +64,7 @@ const jwtValidation = token => {
         jwt.verify(token, process.env.SECRET, (error, decoded) => {
             if (error) {
                 Logger.print(`Invalid token.`);
-                reject({ msg: 'Invalid token', token, error });
+                reject({ msg: `Invalid token`, token, error });
             } else {
                 Logger.print(`Token received for ID=${decoded.id}`);
                 resolve();
