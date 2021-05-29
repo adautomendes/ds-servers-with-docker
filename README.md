@@ -25,15 +25,15 @@ Find below all endpoints exposed by API server. Payload examples are available i
 `POST http://<api_host>:<api_port>/auth/login`: used to authenticate the user.  
 `POST http://<api_host>:<api_port>/auth/logout`: fake route just to inform client to delete token.  
   
-`POST http://<api_host>:<api_port>/user`: create a new user.  
-`PATCH http://<api_host>:<api_port>/user`: update an existing user.  
-`GET http://<api_host>:<api_port>/user/<id>`: find an user by ID, if ID is not provided find all users.  
-`DELETE http://<api_host>:<api_port>/user`: delete an existing user.  
+`POST http://<api_host>:<api_port>/user`: create a new user (mandatory fields: username and password).  
+`PATCH http://<api_host>:<api_port>/user/<username>`: update an existing user.  
+`GET http://<api_host>:<api_port>/user`: find an user by id or username, if no query is provided find all users (query parameters: id, username).  
+`DELETE http://<api_host>:<api_port>/user/<id>`: delete an existing user.  
   
-`POST http://<api_host>:<api_port>/movie`: create a new movie.  
-`PATCH http://<api_host>:<api_port>/movie`: update an existing movie.  
-`GET http://<api_host>:<api_port>/movie/<id>`: find an movie by ID, if ID is not provided find all movies.  
-`DELETE http://<api_host>:<api_port>/movie`: delete an existing movie.  
+`POST http://<api_host>:<api_port>/movie`: create a new movie (mandatory fields: title, year and duration).  
+`PATCH http://<api_host>:<api_port>/movie/<id>`: update an existing movie.  
+`GET http://<api_host>:<api_port>/movie`: find an movie by id, , if no query is provided find all movies (query parameters: id).  
+`DELETE http://<api_host>:<api_port>/movie/<id>`: delete an existing movie.  
 
 ## Configuration
 Each project (folder) has a `.env` file which contains environment variables used to start each server.
@@ -55,8 +55,7 @@ Each project (folder) has a `.env` file which contains environment variables use
 ### API Server `.env` configuration
 
 `PORT`: port used to run API Server.  
-`CORE_1_SERVER`: address of Core Server (instance 1) (e.g `http://localhost:3000`).  
-`CORE_2_SERVER`: address of Core Server (instance 2) (e.g `http://localhost:3001`).  
+`CORE_SERVER`: address of Core Server (e.g `http://localhost:3000`).  
 `AUTH_SERVER`: address of Auth Server (e.g `http://localhost:5000`).  
 
 
