@@ -1,6 +1,5 @@
 # An example of distributed servers
 
-
 ## Dependencies
 - [NodeJS/NPM](https://nodejs.org/en/): JavaScript runtime.
 - [Yarn](https://yarnpkg.com/en/): Dependency management.
